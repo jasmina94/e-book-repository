@@ -1,0 +1,33 @@
+<div class="container">
+    <div layout="column">
+        <div layout="row">
+            <h3>Categories</h3>
+        </div>
+        <md-divider></md-divider>
+        <md-card ng-class="{'md-whiteframe-4dp':hovering}"
+                 ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
+            <md-table-container>
+                <table md-table>
+                    <thead md-head md-order="query.order">
+                    <tr md-row>
+                        <th md-column style="max-width: 60px">Category name</th>
+                        <th md-column style="max-width: 60px">Books in category</th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="category in categories | limitTo: query.limit:(query.page-1) * query.limit">
+                        <td md-cell style="max-width: 60px">{{category.name}}</td>
+                        <td md-cell style="max-width: 60px">
+                            <md-button class="md-icon-button md-accent" aria-label="Books" ng-click="showBooks(category, $event)" style="margin-left: -5px;">
+                                <md-icon md-svg-icon="images/ic_document_24px.svg"></md-icon>
+                            </md-button>
+                        </td>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{categories.length}}" md-page-select
+                                 md-boundary-links="options.boundaryLinks" md-label="{page: 'Page:', rowsPerPage: 'rows per page', of: 'of'}">
+            </md-table-pagination>
+        </md-card>
+    </div>
+</div>

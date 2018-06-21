@@ -1,0 +1,19 @@
+<div class="container">
+    <div layout="column">
+        <md-content ng-if="authService.isVisitor()">
+            <div layout="row">
+                <h3>Welcome visitor</h3>
+            </div>
+        </md-content>
+        <md-divider></md-divider>
+        <md-card>
+            <md-content>
+                <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                    <md-button class="md-raised md-primary" ng-click="goToCategories()">Show categories</md-button>
+                    <md-button class="md-raised md-primary" ng-click="goToEBooks()">Show e-books</md-button>
+                    <div class="label">Flat</div>
+                </section>
+            </md-content>
+        </md-card>
+    </div>
+</div>

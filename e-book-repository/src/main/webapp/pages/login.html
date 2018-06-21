@@ -1,0 +1,42 @@
+<div layout="column" layout-align="center" layout-fill>
+    <div layout="row" layout-align="center center" layout-fill>
+        <md-card ng-class="{'md-whiteframe-4dp':hovering}" style="width: 400px"
+                 ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">EBook repository</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <form novalidate name="loginForm" layout="column">
+                    <md-dialog-content style="padding-top: 30px">
+                        <md-dialog-content>
+                            <md-input-container class="md-block">
+                                <label>Username</label>
+                                <input id="username" name="username" type="text" data-ng-model="user.username" required
+                                       autofocus>
+                                <div ng-messages="loginForm.email.$error" ng-if="loginForm.email.$dirty">
+                                    <div ng-message="required">This field is required.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>Password</label>
+                                <input id="password" name="password" type="password"
+                                       data-ng-model="user.password" required>
+                                <div ng-messages="loginForm.password.$error"
+                                     ng-if="loginForm.password.$dirty">
+                                    <div ng-message="required">This field is required.</div>
+                                </div>
+                            </md-input-container>
+                        </md-dialog-content>
+                    </md-dialog-content>
+                    <md-dialog-actions layout="row" layout-align="end center">
+                        <md-button type="submit" class="md-primary md-raised" ng-click="submit()"
+                                   ng-disabled="loginForm.$invalid">Login
+                        </md-button>
+                    </md-dialog-actions>
+                </form>
+            </md-card-content>
+        </md-card>
+    </div>
+</div>

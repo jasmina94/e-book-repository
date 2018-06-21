@@ -46,10 +46,32 @@ app.service('authenticationService', function ($http, $window) {
             LOCAL_STORAGE_INSTANCE && LOCAL_STORAGE_INSTANCE.removeItem(LOCAL_STORAGE_KEY);
         },
         isAdmin: function () {
-            return this.getUser().type === 'ADMIN';
+            if(this.getUser() != null){
+                if(this.getUser().type === 'ADMIN'){
+                    return true;
+                }else {
+                    return false;
+                }
+            }else {
+                return false;
+            }
+
         },
         isSubscriber: function () {
-            return this.getUser().type === 'SUBSCRIBER';
+            if(this.getUser() != null) {
+                if (this.getUser().type === 'SUBSCRIBER') {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        },
+        isVisitor: function () {
+            if(this.getUser() == null){
+                return true;
+            }else {
+                return false;
+            }
         }
     }
 });
