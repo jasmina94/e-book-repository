@@ -58,21 +58,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO create(UserDTO userDTO) {
-        User user = new User();
-        user.merge(userDTO);
-        // TODO: Uncomment this when development ends
-        //user.setPassword(encoder.encode(user.getPassword()));
-        user.setEnabled(true);
-        user = userDao.save(user);
-        return new UserDTO(user);
+        UserDTO ret = null;
+        if(uniqueUsername(userDTO.getUsername())){
+            User user = new User();
+            user.merge(userDTO);
+            // TODO: Uncomment this when development ends
+            //user.setPassword(encoder.encode(user.getPassword()));
+            user.setEnabled(true);
+            user = userDao.save(user);
+            ret = new UserDTO(user);
+        }
+        return ret;
     }
 
     @Override
     public UserDTO update(Long id, UserDTO userDTO) {
-        User user = userDao.findById(id).orElseThrow(NotFoundException::new);
-        user.merge(userDTO);
-        user = userDao.save(user);
-        return new UserDTO(user);
+        UserDTO ret = null;
+        if(uniqueUsername(userDTO.getUsername())){
+            User user = userDao.findById(id).orElseThrow(NotFoundException::new);
+            user.merge(userDTO);
+            user = userDao.save(user);
+            ret = new UserDTO(user);
+        }
+        return ret;
     }
 
     @Override
@@ -94,5 +102,14 @@ public class UserServiceImpl implements UserService {
     public void delete(Long id) {
         final User user = userDao.findById(id).orElseThrow(NotFoundException::new);
         userDao.delete(user);
+    }
+
+    @Override
+    public boolean uniqueUsername(String username) {
+        boolean result = true;
+        User user = userDao.findByUsername(username);
+        if(user != null)
+            result = false;
+        return result;
     }
 }

@@ -3,7 +3,8 @@
  */
 app.controller('ProfileController', function ($scope, $state, $rootScope, $mdDialog, authenticationService, userService){
 
-    $scope.page.current = 0;
+    $scope.page.current = 4;
+
 
 
 });

@@ -67,4 +67,20 @@ app.controller('NavigationController', function ($scope, $state, $location, $log
         $state.transitionTo('navigation.ebook');
         $mdSidenav('left').close();
     };
+
+    $scope.showAddButton = function () {
+        var show = false;
+        var page = $scope.page;
+        if((page.current == 1 || page.current == 2  || page.current == 5)
+            && authenticationService.isAdmin()){
+            show = true;
+        }
+        return show;
+    };
+
+    $scope.add = function () {
+        $scope.$broadcast('add');
+        $scope.showSearch = false;
+        $scope.emitSearchQuery(null);
+    };
 });

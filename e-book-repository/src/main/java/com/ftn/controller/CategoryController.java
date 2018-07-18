@@ -47,7 +47,7 @@ public class CategoryController {
     @Transactional
     @DeleteMapping(value = "/{id}")
     public ResponseEntity update(@PathVariable Long id) {
-        categoryService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        boolean result = categoryService.delete(id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

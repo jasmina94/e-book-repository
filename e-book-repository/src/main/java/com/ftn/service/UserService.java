@@ -26,4 +26,6 @@ public interface UserService {
     void cancelSubscription(Long id);
 
     void delete(Long id);
+
+    boolean uniqueUsername(String username);
 }

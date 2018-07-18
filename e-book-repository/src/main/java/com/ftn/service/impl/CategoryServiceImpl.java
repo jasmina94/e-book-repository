@@ -3,9 +3,11 @@ package com.ftn.service.impl;
 import com.ftn.exception.NotFoundException;
 import com.ftn.model.Category;
 import com.ftn.model.dto.CategoryDTO;
+import com.ftn.model.dto.EBookDTO;
 import com.ftn.model.dto.UserDTO;
 import com.ftn.repository.CategoryDao;
 import com.ftn.service.CategoryService;
+import com.ftn.service.EBookService;
 import com.ftn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EBookService eBookService;
 
     @Override
     public List<CategoryDTO> readAll() {
@@ -47,12 +52,19 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void delete(Long id) {
+    public boolean delete(Long id) {
+        boolean retVal = true;
         final Category category = categoryDao.findById(id).orElseThrow(NotFoundException::new);
         List<UserDTO> subscribers = userService.readSubscribersTo(id);
-        if(subscribers.size() != 0){
-            subscribers.stream().forEach(subscriber -> userService.cancelSubscription(subscriber.getId()));
+        List<EBookDTO> eBooksInCategory = eBookService.readByCategory(id);
+        if (eBooksInCategory.size() != 0) {
+            retVal = false;
+        } else {
+            if (subscribers.size() != 0)
+                subscribers.stream().forEach(subscriber -> userService.cancelSubscription(subscriber.getId()));
+            retVal = true;
+            categoryDao.delete(category);
         }
-        categoryDao.delete(category);
+        return retVal;
     }
 }

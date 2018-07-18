@@ -2,7 +2,6 @@
  * Created by Jasmina on 19/06/2018.
  */
 app.controller('LoginController', function ($scope, $state, $http, $mdDialog, authenticationService) {
-
     $scope.submit = function () {
         authenticationService.login($scope.user, function () {
             $http.get('/api/users/me')
@@ -34,6 +33,6 @@ app.controller('LoginController', function ($scope, $state, $http, $mdDialog, au
     };
 
     $scope.close = function () {
-        $state.transition('navigation.home');
+        $state.transitionTo('navigation.home');
     };
 });

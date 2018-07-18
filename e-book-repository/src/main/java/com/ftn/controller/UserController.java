@@ -62,7 +62,7 @@ public class UserController {
 
     @Transactional
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity update(@PathVariable Long id) {
+    public ResponseEntity delete(@PathVariable Long id) {
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

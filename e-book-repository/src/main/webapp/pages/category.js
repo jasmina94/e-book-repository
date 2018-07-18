@@ -3,7 +3,7 @@
  */
 app.controller('CategoryController', function ($scope, $state, $rootScope, $mdDialog, categoryService, userService,authenticationService) {
 
-    $scope.page.current = 0;
+    $scope.page.current = 1;
 
     var categories = [];
 
@@ -11,9 +11,6 @@ app.controller('CategoryController', function ($scope, $state, $rootScope, $mdDi
         categoryService.read(function (response) {
             $scope.categories = response.data;
             categories = response.data;
-        });
-        userService.readMe(function (response) {
-            authenticationService.setUser(response.data);
         });
     };
 
@@ -35,13 +32,19 @@ app.controller('CategoryController', function ($scope, $state, $rootScope, $mdDi
     });
 
     $scope.edit = function (category) {
-        openForm(category);
+        if(authenticationService.getUser().type === 'ADMIN')
+            openForm(category);
     };
 
     $scope.delete = function (category, event) {
         event.stopPropagation();
-        categoryService.delete(category.id, function () {
-            loadData();
+        categoryService.delete(category.id, function (response) {
+            if(response.data){
+                loadData();
+            }else {
+                showDeleteErrorMessage();
+            }
+
         },function (response) {
             console.log('Error');
         });
@@ -51,6 +54,9 @@ app.controller('CategoryController', function ($scope, $state, $rootScope, $mdDi
       event.stopPropagation();
       var user = authenticationService.getUser();
       userService.subscribe(user.id, category.id, function () {
+          userService.readMe(function (response) {
+              authenticationService.setUser(response.data);
+          });
           loadData();
       },function (response) {
          console.log('Error subscribe');
@@ -60,8 +66,10 @@ app.controller('CategoryController', function ($scope, $state, $rootScope, $mdDi
     $scope.subscribed = function (category) {
        var subscribed = false;
        var user = authenticationService.getUser();
-       if(user.category != null && user.category.id == category.id){
-           subscribed = true;
+       if(user != null){
+           if(user.category != null && user.category.id == category.id){
+               subscribed = true;
+           }
        }
        return subscribed;
     };
@@ -76,4 +84,16 @@ app.controller('CategoryController', function ($scope, $state, $rootScope, $mdDi
         limit: 5,
         page: 1
     };
+
+    var showDeleteErrorMessage = function () {
+        $mdDialog.show(
+            $mdDialog.alert()
+                .parent(angular.element(document.querySelector('.container')))
+                .clickOutsideToClose(false)
+                .title("Delete category warning")
+                .textContent("This category is connected to some e-books. It can't be deleted!")
+                .ariaLabel("Alert delete category")
+                .ok('Ok!')
+        );
+    }
 });

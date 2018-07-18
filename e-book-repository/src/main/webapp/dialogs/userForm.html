@@ -1,0 +1,71 @@
+<md-dialog class="md-padding card" style="width: 400px">
+    <form novalidate name="userForm" layout="column">
+        <md-dialog-content style="padding-top: 30px">
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Firstname</label>
+                    <input id="firstname" name="firstname" type="text" data-ng-model="user.firstname" required>
+                    <div ng-messages="userForm.firstname.$error" ng-if="userForm.firstname.$dirty">
+                        <div ng-message="required">Firstname is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Lastname</label>
+                    <input id="lastname" name="lastname" type="text" data-ng-model="user.lastname" required>
+                    <div ng-messages="userForm.lastname.$error" ng-if="userForm.lastname.$dirty">
+                        <div ng-message="required">Lastname is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Username</label>
+                    <input id="username" name="username" type="text" data-ng-model="user.username" required>
+                    <div ng-messages="userForm.username.$error" ng-if="userForm.username.$dirty">
+                        <div ng-message="required">Username is required.</div>
+                    </div>
+                    <div ng-messages="userForm.username.$error">
+                        <div ng-message="uniqueError">Username is not unique.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Password</label>
+                    <input id="password" name="password" type="text" data-ng-model="user.password" required>
+                    <div ng-messages="userForm.password.$error" ng-if="userForm.password.$dirty">
+                        <div ng-message="required">Password is required.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <md-label>Type of user</md-label>
+                    <md-select ng-model="user.type" id="userType" name="userType"
+                               required>
+                        <md-option ng-repeat="(key, value) in userTypes" value="{{key}}">{{ value }}</md-option>
+                    </md-select>
+                    <div ng-messages="userForm.userType.$error"
+                         ng-if="userForm.userType.$dirty">
+                        <div ng-message="required">Type is required.</div>
+                    </div>
+                </md-input-container>
+                <md-autocomplete
+                        md-selected-item="user.category"
+                        md-search-text="searchText"
+                        md-items="category in queryCategories(searchText)"
+                        md-item-text="category.name"
+                        md-min-length="0"
+                        placeholder="Find specific category...">
+                    <md-item-template>
+                        <span md-highlight-text="searchText" md-highlight-flags="^i">{{category.name}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Not found category with name "{{searchText}}".
+                    </md-not-found>
+                </md-autocomplete>
+            </md-dialog-content>
+            <p style="font-size: x-small;margin-top: 10px">Chosing none of categories means user will be subscribed to all categories.</p>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button ng-click="close()">Cancel</md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-click="submit()"
+                       ng-disabled="userForm.$invalid">Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

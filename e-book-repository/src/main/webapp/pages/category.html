@@ -23,7 +23,7 @@
                     <tbody md-body>
                     <tr md-row ng-repeat="category in categories | limitTo: query.limit:(query.page-1) * query.limit"
                         ng-click="edit(category)">
-                        <td md-cell style="width: 30px">
+                        <td md-cell style="width: 30px" ng-if="authService.isSubscriber()">
                             <md-icon md-svg-icon="images/ic_star_24px.svg" ng-if="subscribed(category)"></md-icon>
                             <md-button class="md-icon-button md-accent" aria-label="Subs" style="margin-left: -5px;"
                                        ng-if="!subscribed(category)" ng-click="subscribe(category, $event)">

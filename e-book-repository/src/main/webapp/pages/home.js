@@ -3,10 +3,7 @@
  */
 app.controller('HomeController', function ($scope, $state, $location, $log, $rootScope, $mdSidenav, $mdDialog, $interval, authenticationService) {
 
-    $scope.page = {
-        title: 'EBook repository',
-        current: 0
-    };
+    $scope.page.current = 0;
 
     $scope.authService = authenticationService;
 
