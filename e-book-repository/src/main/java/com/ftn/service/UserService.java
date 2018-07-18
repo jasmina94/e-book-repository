@@ -15,9 +15,15 @@ public interface UserService {
 
     List<UserDTO> readSubscribers();
 
+    List<UserDTO> readSubscribersTo(Long categoryId);
+
     UserDTO create(UserDTO userDTO);
 
     UserDTO update(Long id, UserDTO userDTO);
+
+    void subscribe(Long userId, Long categoryId);
+
+    void cancelSubscription(Long id);
 
     void delete(Long id);
 }

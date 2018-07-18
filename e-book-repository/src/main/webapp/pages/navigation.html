@@ -10,9 +10,12 @@
                 <md-button aria-label="Search" ng-click="showSearch = !showSearch">
                     <md-icon md-svg-icon="images/ic_search_white_24px.svg"></md-icon>
                 </md-button>
-                <h3 class="toolbar-item"><span>{{user.firstName}} {{user.lastName}}</span></h3>
-                <md-button class="md-raised" ng-click="logout()">
+                <h3 class="toolbar-item"><span>{{user.firstname}} {{user.lastname}}</span></h3>
+                <md-button class="md-raised" ng-click="logout()" ng-if="authService.isLoggedIn()">
                     Logout
+                </md-button>
+                <md-button class="md-raised" ng-click="login()" ng-if="!authService.isLoggedIn()">
+                    Login
                 </md-button>
             </div>
         </md-toolbar>
@@ -38,12 +41,30 @@
             </div>
         </md-toolbar>
 
-
-        <!-- Subsrciber -->
-        <md-content layout-xs ng-if="authService.isSubscriber()">
+        <!-- All -->
+        <md-content layout-xs>
             <md-input-container class="md-block sidenav-item">
                 <md-button ng-click="goToHome()" class="md-primary sidenav-item" style="text-align:left">
-                    Početna
+                    Home
+                </md-button>
+            </md-input-container>
+            <md-input-container class="md-block sidenav-item">
+                <md-button ng-click="goToCategories()" class="md-primary sidenav-item" style="text-align:left">
+                    E-book categories
+                </md-button>
+            </md-input-container>
+            <md-input-container class="md-block sidenav-item">
+                <md-button ng-click="goToEBooks()" class="md-primary sidenav-item" style="text-align:left">
+                    E-books
+                </md-button>
+            </md-input-container>
+        </md-content>
+
+        <!-- Subscriber -->
+        <md-content layout-xs ng-if="authService.isSubscriber()">
+            <md-input-container class="md-block sidenav-item">
+                <md-button ng-click="goToProfileManagement()" class="md-primary sidenav-item" style="text-align:left" >
+                    Profile management
                 </md-button>
             </md-input-container>
         </md-content>
@@ -51,8 +72,13 @@
         <!-- Admin -->
         <md-content layout-xs ng-if="authService.isAdmin()">
             <md-input-container class="md-block sidenav-item">
-                <md-button ng-click="goToCompanies()" class="md-primary sidenav-item" style="text-align:left" >
-                    Preduzeća
+                <md-button ng-click="goToUserManagement()" class="md-primary sidenav-item" style="text-align:left" >
+                    User management
+                </md-button>
+            </md-input-container>
+            <md-input-container class="md-block sidenav-item">
+                <md-button ng-click="goToProfileManagement()" class="md-primary sidenav-item" style="text-align:left" >
+                    Profile management
                 </md-button>
             </md-input-container>
         </md-content>

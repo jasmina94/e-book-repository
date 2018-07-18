@@ -45,11 +45,6 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $htt
             controller: 'HomeController',
             templateUrl: 'pages/home.html'
         })
-        .state('navigation.admin', {
-            url: '/admin',
-            controller: 'HomeController',
-            templateUrl: 'pages/admin.html'
-        })
         .state('navigation.category',{
             url: '/category',
             controller: 'CategoryController',
@@ -60,5 +55,14 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $htt
             controller: 'EBookController',
             templateUrl: 'pages/ebook.html'
         })
-
+        .state('navigation.users',{
+            url: '/users',
+            controller: 'UsersController',
+            templateUrl: 'pages/users.html'
+        })
+        .state('navigation.profile',{
+            url: '/profile',
+            controller: 'ProfileController',
+            templateUrl: 'pages/profile.html'
+        })
 });

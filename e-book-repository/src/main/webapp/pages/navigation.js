@@ -13,12 +13,18 @@ app.controller('NavigationController', function ($scope, $state, $location, $log
 
     $scope.logout = function () {
         authenticationService.logout(function () {
-            $state.transitionTo('login');
+            $state.transitionTo('navigation.home');
+            localStorage.clear();
+            $scope.user = null;
         }, function () {
 
         });
     };
 
+    $scope.login = function () {
+      console.log("Login");
+      $state.transitionTo('login');
+    };
 
     $scope.toggleSidenav = buildToggler('left');
 
@@ -38,14 +44,27 @@ app.controller('NavigationController', function ($scope, $state, $location, $log
     };
 
     $scope.goToHome = function () {
-        console.log("HOME");
-        //$state.transitionTo('navigation.home');
+        $state.transitionTo('navigation.home');
         $mdSidenav('left').close();
     };
 
-    $scope.goToCompanies = function () {
-        console.log("COMPANIES");
-        //$state.transitionTo('navigation.home');
+    $scope.goToUserManagement = function () {
+        $state.transitionTo('navigation.users');
+        $mdSidenav('left').close();
+    };
+
+    $scope.goToProfileManagement = function () {
+        $state.transitionTo('navigation.profile');
+        $mdSidenav('left').close();
+    };
+
+    $scope.goToCategories = function () {
+        $state.transitionTo('navigation.category');
+        $mdSidenav('left').close();
+    };
+
+    $scope.goToEBooks = function () {
+        $state.transitionTo('navigation.ebook');
         $mdSidenav('left').close();
     };
 });

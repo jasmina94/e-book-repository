@@ -45,6 +45,13 @@ app.service('authenticationService', function ($http, $window) {
         removeUser: function () {
             LOCAL_STORAGE_INSTANCE && LOCAL_STORAGE_INSTANCE.removeItem(LOCAL_STORAGE_KEY);
         },
+        isLoggedIn: function(){
+            if(this.getUser() != null){
+                return true;
+            }else {
+                return false;
+            }
+        },
         isAdmin: function () {
             if(this.getUser() != null){
                 if(this.getUser().type === 'ADMIN'){
@@ -69,6 +76,30 @@ app.service('authenticationService', function ($http, $window) {
         isVisitor: function () {
             if(this.getUser() == null){
                 return true;
+            }else {
+                return false;
+            }
+        },
+        hasNoSubscription: function () {
+            if(this.getUser() != null){
+                var user = this.getUser();
+                if(user.category == null && user.type === 'SUBSCRIBER'){
+                    return true;
+                }else {
+                    return false;
+                }
+            }else {
+                return false;
+            }
+        },
+        hasSubscription: function () {
+            if(this.getUser() != null){
+                var user = this.getUser();
+                if(user.category != null && user.type === 'SUBSCRIBER'){
+                    return true;
+                }else {
+                    return false;
+                }
             }else {
                 return false;
             }

@@ -39,6 +39,12 @@ public class UserController {
     }
 
     @Transactional
+    @GetMapping(value = "/subs")
+    public ResponseEntity readSubs() {
+        return new ResponseEntity<>(userService.readSubscribers(), HttpStatus.OK);
+    }
+
+    @Transactional
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -58,6 +64,13 @@ public class UserController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity update(@PathVariable Long id) {
         userService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Transactional
+    @PostMapping(value = "/{userId}/{categoryId}")
+    public ResponseEntity subscribe(@PathVariable("userId") Long userId, @PathVariable("categoryId") Long categoryId){
+        userService.subscribe(userId, categoryId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

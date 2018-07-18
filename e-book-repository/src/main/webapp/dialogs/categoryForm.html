@@ -1,0 +1,21 @@
+<md-dialog class="md-padding card" style="width: 400px">
+    <form novalidate name="categoryForm" layout="column">
+        <md-dialog-content style="padding-top: 30px">
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Name</label>
+                    <input id="name" name="name" type="text" data-ng-model="category.name" required>
+                    <div ng-messages="categoryForm.name.$error" ng-if="categoryForm.name.$dirty">
+                        <div ng-message="required">Category name is required.</div>
+                    </div>
+                </md-input-container>
+            </md-dialog-content>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button ng-click="close()">Cancel</md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-click="submit()"
+                       ng-disabled="categoryForm.$invalid">Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -8,11 +8,7 @@ app.controller('LoginController', function ($scope, $state, $http, $mdDialog, au
             $http.get('/api/users/me')
                 .success(function (user) {
                     authenticationService.setUser(user);
-                    if (authenticationService.isSubscriber()) {
-                        $state.transitionTo('navigation.home');
-                    } else if (authenticationService.isAdmin()) {
-                        $state.transitionTo('navigation.admin');
-                    }
+                    $state.transitionTo('navigation.home');
                 })
                 .error(error);
         }, error);
@@ -35,5 +31,9 @@ app.controller('LoginController', function ($scope, $state, $http, $mdDialog, au
             controller: 'CreateAccountController'
         }).finally(function() {
         });
-    }
+    };
+
+    $scope.close = function () {
+        $state.transition('navigation.home');
+    };
 });

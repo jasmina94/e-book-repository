@@ -40,7 +40,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     private Category category;
 
     @Column(nullable = false)
