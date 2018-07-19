@@ -1,1 +1,31 @@
-<h2>User profile</h2>
+<div class="container">
+    <div layout="column">
+        <div layout="row">
+            <h3>Profile</h3>
+        </div>
+        <md-divider></md-divider>
+        <md-card ng-class="{'md-whiteframe-4dp':hovering}"
+                 ng-mouseenter="hovering=true" ng-mouseleave="hovering=false" md-theme-watch>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{user.firstname}}  {{user.lastname}}</span>
+                    <span class="md-subhead">Customize your profile data</span>
+                    <br/>
+                    <p>Username: {{user.username}}</p>
+                    <p>Firstname: {{user.firstname}}</p>
+                    <p>Lastname: {{user.lastname}}</p>
+                    <p>Subscription to the category: {{categoryName}}</p>
+                </md-card-title-text>
+                <md-card-title-media>
+                    <div class="md-media-lg card-media">
+                        <img ng-src="images/profile.png" class="md-card-image" alt="Washed Out">
+                    </div>
+                </md-card-title-media>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-click="passChange()">Change password</md-button>
+                <md-button ng-click="otherChange()">Change other data</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>

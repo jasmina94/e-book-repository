@@ -1,5 +1,6 @@
 package com.ftn.service;
 
+import com.ftn.model.dto.PasswordDTO;
 import com.ftn.model.dto.UserDTO;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public interface UserService {
     UserDTO create(UserDTO userDTO);
 
     UserDTO update(Long id, UserDTO userDTO);
+
+    boolean updatePassword(Long id, PasswordDTO passwordDTO);
 
     void subscribe(Long userId, Long categoryId);
 

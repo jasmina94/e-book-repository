@@ -1,0 +1,44 @@
+<md-dialog class="md-padding card" style="width: 400px">
+    <form novalidate name="passForm" layout="column">
+        <md-dialog-content style="padding-top: 30px">
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Old password</label>
+                    <input id="oldPassword" name="oldPassword" type="password" data-ng-model="pass.oldPassword" required>
+                    <div ng-messages="passForm.oldPassword.$error" ng-if="passForm.oldPassword.$dirty">
+                        <div ng-message="required">Old password is required!</div>
+                    </div>
+                    <div ng-messages="passForm.oldPassword.$error">
+                        <div ng-message="matchingError">Not matching!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>New password</label>
+                    <input id="newPassword" name="newPassword" type="password" data-ng-model="pass.newPassword" required>
+                    <div ng-messages="passForm.newPassword.$error" ng-if="passForm.newPassword.$dirty">
+                        <div ng-message="required">New password is required!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Repeat new password</label>
+                    <input id="repeatedPassword" name="repeatedPassword" type="password" data-ng-model="pass.repeatedPassword" required>
+                    <div ng-messages="passForm.repeatedPassword.$error" ng-if="passForm.repeatedPassword.$dirty">
+                        <div ng-message="required">Repeated new password is required!</div>
+                    </div>
+                    <div ng-messages="passForm.repeatedPassword.$error">
+                        <div ng-message="matchingError">Not matching!</div>
+                    </div>
+                    <div ng-messages="passForm.repeatedPassword.$error">
+                        <div ng-message="globalError">Server could not change your password at the moment!</div>
+                    </div>
+                </md-input-container>
+            </md-dialog-content>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button ng-click="close()">Cancel</md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-click="submit()"
+                       ng-disabled="passForm.$invalid">Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

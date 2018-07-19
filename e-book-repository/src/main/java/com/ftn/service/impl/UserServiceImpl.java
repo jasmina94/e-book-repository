@@ -3,6 +3,7 @@ package com.ftn.service.impl;
 import com.ftn.exception.NotFoundException;
 import com.ftn.model.Category;
 import com.ftn.model.User;
+import com.ftn.model.dto.PasswordDTO;
 import com.ftn.model.dto.UserDTO;
 import com.ftn.repository.CategoryDao;
 import com.ftn.repository.UserDao;
@@ -81,6 +82,21 @@ public class UserServiceImpl implements UserService {
             ret = new UserDTO(user);
         }
         return ret;
+    }
+
+    @Override
+    public boolean updatePassword(Long id, PasswordDTO passwordDTO) {
+        boolean success = true;
+        User user = userDao.findById(id).orElseThrow(NotFoundException::new);
+        if(!passwordDTO.getOldPassword().equals(user.getPassword())){
+            success = false;
+        }else if(!passwordDTO.getNewPassword().equals(passwordDTO.getRepeatedPassword())){
+            success = false;
+        }else {
+            user.setPassword(passwordDTO.getNewPassword());
+            userDao.save(user);
+        }
+        return success;
     }
 
     @Override

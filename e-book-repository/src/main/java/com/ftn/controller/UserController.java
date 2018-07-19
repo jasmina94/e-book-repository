@@ -2,6 +2,7 @@ package com.ftn.controller;
 
 import com.ftn.constants.Auth;
 import com.ftn.exception.BadRequestException;
+import com.ftn.model.dto.PasswordDTO;
 import com.ftn.model.dto.UserDTO;
 import com.ftn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,14 @@ public class UserController {
         if (bindingResult.hasErrors())
             throw new BadRequestException();
         return new ResponseEntity<>(userService.update(id, userDTO), HttpStatus.OK);
+    }
+
+    @Transactional
+    @PatchMapping(value = "/pass/{id}")
+    public ResponseEntity updatePass(@PathVariable Long id, @Valid @RequestBody PasswordDTO passwordDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            throw new BadRequestException();
+        return new ResponseEntity<>(userService.updatePassword(id, passwordDTO), HttpStatus.OK);
     }
 
     @Transactional
