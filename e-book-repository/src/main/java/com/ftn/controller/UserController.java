@@ -70,6 +70,12 @@ public class UserController {
     }
 
     @Transactional
+    @PatchMapping(value = "/unique/{username}")
+    public ResponseEntity uniqueUsername(@PathVariable String username) {
+        return new ResponseEntity<>(userService.uniqueUsername(username), HttpStatus.OK);
+    }
+
+    @Transactional
     @DeleteMapping(value = "/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         userService.delete(id);

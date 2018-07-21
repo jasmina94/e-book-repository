@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<md-dialog class="md-padding card" style="width: 400px">
+    <form novalidate name="profileForm" layout="column">
+        <md-dialog-content style="padding-top: 30px">
+            <md-dialog-content>
+                <md-input-container class="md-block">
+                    <label>Firstname</label>
+                    <input id="firstname" name="firstname" type="text" data-ng-model="user.firstname" required>
+                    <div ng-messages="profileForm.firstname.$error" ng-if="profileForm.firstname.$dirty">
+                        <div ng-message="required">Firstname is required!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Lastname</label>
+                    <input id="lastname" name="lastname" type="text" data-ng-model="user.lastname" required>
+                    <div ng-messages="profileForm.lastname.$error" ng-if="profileForm.lastname.$dirty">
+                        <div ng-message="required">Lastname is required!</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Username</label>
+                    <input id="username" name="username" type="text" data-ng-model="user.username" required>
+                    <div ng-messages="profileForm.username.$error" ng-if="profileForm.username.$dirty">
+                        <div ng-message="required">Username is required!</div>
+                    </div>
+                    <div ng-messages="profileForm.username.$error">
+                        <div ng-message="uniqueError">Username must be unique!</div>
+                    </div>
+                    <div ng-messages="profileForm.username.$error">
+                        <div ng-message="globalError">Server could not update your profile data at the moment!</div>
+                    </div>
+                </md-input-container>
+            </md-dialog-content>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button ng-click="close()">Cancel</md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-click="submit()"
+                       ng-disabled="profileForm.$invalid">Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -60,28 +60,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO create(UserDTO userDTO) {
         UserDTO ret = null;
-        if(uniqueUsername(userDTO.getUsername())){
-            User user = new User();
-            user.merge(userDTO);
-            // TODO: Uncomment this when development ends
-            //user.setPassword(encoder.encode(user.getPassword()));
-            user.setEnabled(true);
-            user = userDao.save(user);
-            ret = new UserDTO(user);
-        }
-        return ret;
+        User user = new User();
+        user.merge(userDTO);
+        // TODO: Uncomment this when development ends
+        //user.setPassword(encoder.encode(user.getPassword()));
+        user.setEnabled(true);
+        user = userDao.save(user);
+        return new UserDTO(user);
     }
 
     @Override
     public UserDTO update(Long id, UserDTO userDTO) {
-        UserDTO ret = null;
-        if(uniqueUsername(userDTO.getUsername())){
-            User user = userDao.findById(id).orElseThrow(NotFoundException::new);
-            user.merge(userDTO);
-            user = userDao.save(user);
-            ret = new UserDTO(user);
-        }
-        return ret;
+        User user = userDao.findById(id).orElseThrow(NotFoundException::new);
+        user.merge(userDTO);
+        user = userDao.save(user);
+        return new UserDTO(user);
     }
 
     @Override

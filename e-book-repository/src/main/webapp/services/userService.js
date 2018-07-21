@@ -21,6 +21,9 @@ app.service('userService', function($http){
         updatePass: function(userId, passwordDTO, onSuccess, onError){
             $http.patch('/api/users/pass/' + userId, passwordDTO).then(onSuccess, onError);
         },
+        checkUsername: function (username, onSuccess, onError) {
+            $http.patch('/api/users/unique/' + username).then(onSuccess, onError);
+        },
         delete: function (id, onSuccess, onError) {
             $http.delete('/api/users/' + id).then(onSuccess, onError);
         },

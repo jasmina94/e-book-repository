@@ -14,9 +14,8 @@ app.controller('UsersController', function ($scope, $state, $rootScope, $mdDialo
 
     var loadUsers = function () {
         userService.read(function (response) {
-            $scope.users = response.data;
-            users = response.data;
-            filterSubscribers(users);
+            $scope.users = filter(response.data);
+            filterSubscribers(response.data);
         });
     };
 
@@ -28,6 +27,18 @@ app.controller('UsersController', function ($scope, $state, $rootScope, $mdDialo
             }
         }
     };
+
+    var filter = function (users) {
+        var me = authenticationService.getUser();
+        for(var i=0; i<users.length; i++){
+            var user = users[i];
+            if(user.id === me.id){
+                users.splice(i, 1);
+            }
+        }
+        return users;
+    };
+
 
     loadUsers();
 
