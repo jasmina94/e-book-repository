@@ -16,7 +16,7 @@ public class EBook {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String title;
@@ -28,13 +28,13 @@ public class EBook {
     private String keywords;
 
     @Column
-    private int publicationYear;
+    private Integer publicationYear;
 
     @Column(nullable = false)
     private String filename;
 
     @Column
-    private String MIME;
+    private String mime;
 
     @ManyToOne(optional = false)
     private Language language;
@@ -52,7 +52,7 @@ public class EBook {
         this.keywords = eBookDTO.getKeywords();
         this.publicationYear = eBookDTO.getPublicationYear();
         this.filename = eBookDTO.getFilename();
-        this.MIME = eBookDTO.getMIME();
+        this.mime = eBookDTO.getMime();
         this.language = eBookDTO.getLanguage().construct();
         this.category = eBookDTO.getCategory().construct();
         this.cataloguer = eBookDTO.getCataloguer().construct();

@@ -27,7 +27,6 @@ public class UserController {
 
 
     @Transactional
-    @PreAuthorize(Auth.AUTHENTICATED)
     @GetMapping(value = "/me")
     public ResponseEntity readMe() {
         return new ResponseEntity<>(userService.readSelf(), HttpStatus.OK);
@@ -46,6 +45,7 @@ public class UserController {
     }
 
     @Transactional
+    @PreAuthorize(Auth.ADMIN)
     @PostMapping
     public ResponseEntity create(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -54,6 +54,7 @@ public class UserController {
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @PatchMapping(value = "/{id}")
     public ResponseEntity update(@PathVariable Long id,@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -62,6 +63,7 @@ public class UserController {
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @PatchMapping(value = "/pass/{id}")
     public ResponseEntity updatePass(@PathVariable Long id, @Valid @RequestBody PasswordDTO passwordDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -70,12 +72,14 @@ public class UserController {
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @PatchMapping(value = "/unique/{username}")
     public ResponseEntity uniqueUsername(@PathVariable String username) {
         return new ResponseEntity<>(userService.uniqueUsername(username), HttpStatus.OK);
     }
 
     @Transactional
+    @PreAuthorize(Auth.ADMIN)
     @DeleteMapping(value = "/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         userService.delete(id);
@@ -83,6 +87,7 @@ public class UserController {
     }
 
     @Transactional
+    @PreAuthorize(Auth.AUTHENTICATED)
     @PostMapping(value = "/{userId}/{categoryId}")
     public ResponseEntity subscribe(@PathVariable("userId") Long userId, @PathVariable("categoryId") Long categoryId){
         userService.subscribe(userId, categoryId);

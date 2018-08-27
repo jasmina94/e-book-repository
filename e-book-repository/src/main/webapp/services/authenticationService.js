@@ -103,6 +103,29 @@ app.service('authenticationService', function ($http, $window) {
             }else {
                 return false;
             }
+        },
+        canDownload: function (category) {
+            var canDownload = {};
+            canDownload.dialogType = null;
+            var user = this.getUser();
+            if(user != null){
+                if(user.type === 'ADMIN'){
+                    canDownload.success = true;
+                }else if(user.type === 'SUBSCRIBER'){
+                    if(user.category === null){
+                        canDownload.success = true;
+                    }else if(user.category.id === category.id){
+                        canDownload.success = true;
+                    }else {
+                        canDownload.success = false;
+                        canDownload.dialogType = "permission";
+                    }
+                }
+            }else {
+                canDownload.success = false;
+                canDownload.dialogType = "commercial";
+            }
+            return canDownload;
         }
     }
 });

@@ -3,7 +3,7 @@
  */
 'use strict';
 
-var app = angular.module('app', ['ui.router', 'ngMessages', 'ngMaterial', 'md.data.table']);
+var app = angular.module('app', ['ui.router', 'ngMessages', 'ngMaterial', 'md.data.table', 'hljs']);
 
 app.factory('authInterceptor', ['$q', '$injector', function ($q, $injector) {
     var authInterceptor = {
@@ -18,7 +18,7 @@ app.factory('authInterceptor', ['$q', '$injector', function ($q, $injector) {
     return authInterceptor;
 }]);
 
-app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider, $mdThemingProvider, $mdDateLocaleProvider) {
+app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $httpProvider, $mdThemingProvider, $mdDateLocaleProvider, hljsServiceProvider) {
 
     $mdThemingProvider.theme('default')
         .primaryPalette('indigo')
@@ -55,6 +55,15 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $htt
             controller: 'EBookController',
             templateUrl: 'pages/ebook.html'
         })
+        .state('navigation.catEBook',{
+            url: '/catebook',
+            controller: 'EBookController',
+            templateUrl: 'pages/ebook.html',
+            params: {
+                filteredEBooks : [],
+                category: null
+            }
+        })
         .state('navigation.users',{
             url: '/users',
             controller: 'UsersController',
@@ -65,4 +74,14 @@ app.config(function ($stateProvider, $locationProvider, $urlRouterProvider, $htt
             controller: 'ProfileController',
             templateUrl: 'pages/profile.html'
         })
+        .state('navigation.searchEBook',{
+            url: '/search',
+            controller: 'SearchController',
+            templateUrl: 'pages/search.html'
+        })
+
+    hljsServiceProvider.setOptions({
+        tabReplace: '  '
+    });
+    hljs.initHighlighting();
 });

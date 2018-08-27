@@ -1,0 +1,103 @@
+<md-dialog class="md-padding card" style="width: 400px">
+    <form novalidate name="eBookForm" layout="column">
+        <md-dialog-content style="padding-top: 30px">
+            <md-dialog-content>
+                <label ng-hide="successfulUpload">Select a file</label>
+                <input ng-hide="successfulUpload" id="file" name="file" type="file"
+                       onchange="angular.element(this).scope().uploadFile(this.files)"
+                       accept="application/pdf">
+                <md-input-container class="md-block" ng-show="successfulUpload">
+                    <label>Filename</label>
+                    <input id="filename" name="filename" type="text" data-ng-model="eBook.filename" ng-readonly="true">
+                </md-input-container>
+            </md-dialog-content>
+            <md-dialog-content ng-show="successfulUpload">
+                <md-input-container class="md-block">
+                    <label>Title</label>
+                    <input id="title" name="title" type="text" data-ng-model="eBook.title" required>
+                    <div ng-messages="eBookForm.title.$error" ng-if="eBookForm.title.$dirty">
+                        <div ng-message="required">EBook title is required.</div>
+                    </div>
+                </md-input-container>
+            </md-dialog-content>
+            <md-dialog-content ng-show="successfulUpload">
+                <md-input-container class="md-block">
+                    <label>Author</label>
+                    <input id="author" name="author" type="text" data-ng-model="eBook.author" required>
+                    <div ng-messages="eBookForm.author.$error" ng-if="eBookForm.author.$dirty">
+                        <div ng-message="required">EBook author is required.</div>
+                    </div>
+                </md-input-container>
+            </md-dialog-content>
+            <md-dialog-content ng-show="successfulUpload">
+                <md-input-container class="md-block">
+                    <label>Publication year</label>
+                    <input id="publicationYear" name="publicationYear" type="text"
+                           data-ng-model="eBook.publicationYear">
+                </md-input-container>
+            </md-dialog-content>
+            <md-dialog-content ng-show="successfulUpload">
+                <md-input-container class="md-block">
+                    <label>Keywords</label>
+                    <input id="keywords" name="keywords" type="text" data-ng-model="eBook.keywords">
+                    <p style="font-size: x-small;margin-top: 10px">Please separate keywords with comma.</p>
+                </md-input-container>
+            </md-dialog-content>
+            <md-dialog-content ng-hide="true">
+                <md-input-container class="md-block">
+                    <label>Mime</label>
+                    <input id="mime" name="mime" type="text" data-ng-model="eBook.mime">
+                </md-input-container>
+            </md-dialog-content>
+            <md-autocomplete ng-required = "true"
+                             ng-show="successfulUpload"
+                             md-input-name="languageAuto"
+                             md-selected-item="eBook.language"
+                             md-search-text="searchTextLanguage"
+                             md-items="language in queryLanguages(searchTextLanguage)"
+                             md-item-text="language.name"
+                             md-min-length="0"
+                             md-require-match
+                             placeholder="Language...">
+                <md-item-template>
+                    <span md-highlight-text="searchTextLanguage" md-highlight-flags="^i">{{language.name}}</span>
+                </md-item-template>
+                <div ng-messages="eBookForm.languageAuto.$error" ng-if="eBookForm.languageAuto.$touched">
+                    <div ng-message="required">Language is required.</div>
+                </div>
+                <md-not-found>
+                    Not found language "{{searchTextLanguage}}".
+                </md-not-found>
+            </md-autocomplete>
+            <br/>
+            <md-autocomplete ng-required = "true"
+                             ng-show="successfulUpload"
+                             md-input-name="categoryAuto"
+                             md-selected-item="eBook.category"
+                             md-search-text="searchTextCategory"
+                             md-items="category in queryCategories(searchTextCategory)"
+                             md-item-text="category.name"
+                             md-min-length="0"
+                             md-require-match
+                             placeholder="Category...">
+                <md-item-template>
+                    <span md-highlight-text="searchTextCategory" md-highlight-flags="^i">{{category.name}}</span>
+                </md-item-template>
+                <div ng-messages="eBookForm.categoryAuto.$error" ng-if="eBookForm.categoryAuto.$touched">
+                    <div ng-message="required">Category is required.</div>
+                </div>
+                <md-not-found>
+                    Not found category "{{searchTextCategory}}".
+                </md-not-found>
+
+            </md-autocomplete>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end center">
+            <md-button ng-click="close()">Cancel</md-button>
+            <md-button ng-show="successfulUpload" ng-click="back()">Change file</md-button>
+            <md-button type="submit" class="md-primary md-raised" ng-click="submit()"
+                       ng-disabled="eBookForm.$invalid">Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

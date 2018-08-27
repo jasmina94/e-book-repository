@@ -1,0 +1,181 @@
+<div class="container">
+    <div layout="column">
+        <div layout="row">
+            <h3>Search EBooks</h3>
+        </div>
+        <md-divider></md-divider>
+        <div layout="row">
+            <md-content layout-padding>
+                <form name="sfsForm" class="sfsFormStyle">
+                    <p class="sfsFormTitleStyle">Single field search</p>
+                    <md-input-container class="md-block">
+                        <label>Field name you want to search EBook by:</label>
+                        <md-select id="sfsFieldName" name="sfsFieldName" data-ng-model="eBookSearchParams.sfs.fieldName"
+                                   required>
+                            <md-option value="title">Title</md-option>
+                            <md-option value="author">Author</md-option>
+                            <md-option value="keyword">Keyword</md-option>
+                            <md-option value="content">Content</md-option>
+                            <md-option value="language">Language</md-option>
+                        </md-select>
+                        <div ng-messages="sfsForm.sfsFieldName.$error" ng-if="sfsForm.sfsFieldName.$dirty">
+                            <div ng-message="required">Field name is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Value you're looking for: </label>
+                        <input id="sfsFieldValue" name="sfsFieldValue" type="text"
+                               data-ng-model="eBookSearchParams.sfs.fieldValue" required>
+                        <div ng-messages="sfsForm.sfsFieldValue.$error" ng-if="sfsForm.sfsFieldValue.$dirty">
+                            <div ng-message="required">Searching value is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Query type</label>
+                        <md-select id="sfsQueryType" name="sfsQueryType" data-ng-model="eBookSearchParams.sfs.queryType"
+                                   required>
+                            <md-option value="STANDARD">Standard</md-option>
+                            <md-option value="PHRASE">Phrase</md-option>
+                            <md-option value="FUZZY">Fuzzy</md-option>
+                        </md-select>
+                        <div ng-messages="sfsForm.sfsQueryType.$error" ng-if="sfsForm.sfsQueryType.$dirty">
+                            <div ng-message="required">Query type is required.</div>
+                        </div>
+                    </md-input-container>
+                    <div style="text-align: center">
+                        <md-button type="submit" class="md-primary md-raised" ng-click="searchSFS()"
+                                   ng-disabled="sfsForm.$invalid">Search
+                        </md-button>
+                    </div>
+                </form>
+            </md-content>
+            <md-content layout-padding>
+                <form name="mfsForm" class="mfsFormStyle">
+                    <p class="mfsFormTitleStyle">Multiple field search</p>
+                    <div layout="row">
+                        <md-input-container class="md-block">
+                            <label>Title:</label>
+                            <input id="mfsTitle" name="mfsTitle" type="text"
+                                   data-ng-model="eBookSearchParams.mfs.title"
+                                   ng-required="areTwoFilled(eBookSearchParams.mfs.title,eBookSearchParams.mfs.author,
+                                    eBookSearchParams.mfs.keywords,eBookSearchParams.mfs.content,eBookSearchParams.mfs.language)">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Author:</label>
+                            <input id="mfsAuthor" name="mfsAuthor" type="text"
+                                   data-ng-model="eBookSearchParams.mfs.author"
+                                   ng-required="areTwoFilled(eBookSearchParams.mfs.title,eBookSearchParams.mfs.author,
+                                    eBookSearchParams.mfs.keywords,eBookSearchParams.mfs.content,eBookSearchParams.mfs.language)">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Keywords:</label>
+                            <input id="mfsKeywords" name="mfsKeywords" type="text"
+                                   data-ng-model="eBookSearchParams.mfs.keywords" ng-pattern="keywordsPattern"
+                                   ng-required="areTwoFilled(eBookSearchParams.mfs.title,eBookSearchParams.mfs.author,
+                                    eBookSearchParams.mfs.keywords,eBookSearchParams.mfs.content,eBookSearchParams.mfs.language)">
+                            <p style="font-size: x-small;margin-top: 10px">Please separate keywords with comma.</p>
+                            <div ng-messages="mfsForm.mfsKeywords.$error" ng-if="mfsForm.mfsKeywords.$dirty">
+                                <div ng-message="pattern">Not valid input.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div layout="row">
+                        <md-input-container class="md-block">
+                            <label>Content:</label>
+                            <input id="mfsContent" name="mfsContent" type="text"
+                                   data-ng-model="eBookSearchParams.mfs.content"
+                                   ng-required="areTwoFilled(eBookSearchParams.mfs.title,eBookSearchParams.mfs.author,
+                                    eBookSearchParams.mfs.keywords,eBookSearchParams.mfs.content,eBookSearchParams.mfs.language)">
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Language:</label>
+                            <input id="mfsLanguage" name="mfsLanguage" type="text"
+                                   data-ng-model="eBookSearchParams.mfs.language"
+                                   ng-required="areTwoFilled(eBookSearchParams.mfs.title,eBookSearchParams.mfs.author,
+                                    eBookSearchParams.mfs.keywords,eBookSearchParams.mfs.content,eBookSearchParams.mfs.language)">
+                        </md-input-container>
+                    </div>
+                    <div layout="row">
+                        <md-input-container class="md-block">
+                            <label>Query operator</label>
+                            <md-select id="mfsQueryOperator" name="mfsQueryOperator"
+                                       data-ng-model="eBookSearchParams.mfs.queryOperator"
+                                       required>
+                                <md-option value="OR">Or</md-option>
+                                <md-option value="AND">And</md-option>
+                            </md-select>
+                            <div ng-messages="mfsForm.mfsQueryOperator.$error" ng-if="mfsForm.mfsQueryOperator.$dirty">
+                                <div ng-message="required">Query operator is required.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Query type</label>
+                            <md-select id="mfsQueryType" name="mfsQueryType"
+                                       data-ng-model="eBookSearchParams.mfs.queryType"
+                                       required>
+                                <md-option value="STANDARD">Standard</md-option>
+                                <md-option value="PHRASE">Phrase</md-option>
+                                <md-option value="FUZZY">Fuzzy</md-option>
+                            </md-select>
+                            <div ng-messages="mfsForm.mfsQueryType.$error" ng-if="mfsForm.mfsQueryType.$dirty">
+                                <div ng-message="required">Query type is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div style="text-align: center">
+                        <md-button type="submit" class="md-primary md-raised" ng-click="searchMFS()"
+                                   ng-disabled="mfsForm.$invalid">Search
+                        </md-button>
+                    </div>
+                </form>
+            </md-content>
+        </div>
+        <md-divider></md-divider>
+        <div layout="column" ng-show="resultsFound">
+            <h4>Search results</h4>
+            <md-card ng-class="{'md-whiteframe-4dp':hovering}"
+                     ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
+                <md-table-container>
+                    <table md-table>
+                        <thead md-head md-order="query.order">
+                        <tr md-row>
+                            <th md-column style="max-width: 100%">Title</th>
+                            <th md-column style="max-width: 100%">Author</th>
+                            <th md-column style="max-width: 100%">Highlights</th>
+                            <th md-column style="max-width: 100%">Details
+                            </th>
+                            <th md-column style="max-width: 100%">Download
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody md-body>
+                        <tr md-row
+                            ng-repeat="eBook in eBookSearchResults | limitTo: query.limit:(query.page-1) * query.limit">
+                            <td md-cell style="max-width: 100%">{{eBook.title}}</td>
+                            <td md-cell style="max-width: 100%">{{eBook.author}}</td>
+                            <td md-cell style="max-width: 100%" hljs hljs-source="test(eBook)"></td>
+                            <td md-cell style="max-width: 100%">
+                                <md-button class="md-icon-button md-accent" aria-label="Delete"
+                                           ng-click="details(eBook, $event)">
+                                    <md-icon md-svg-icon="images/ic_information24px.svg"></md-icon>
+                                </md-button>
+                            </td>
+                            <td md-cell style="max-width: 100%">
+                                <md-button class="md-icon-button md-accent" aria-label="Download"
+                                           ng-click="download(eBook, $event)">
+                                    <md-icon md-svg-icon="images/ic_download24px.svg"></md-icon>
+                                </md-button>
+                            </td>
+
+                        </tbody>
+                    </table>
+                </md-table-container>
+                <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page"
+                                     md-total="{{eBookSearchResults.length}}" md-page-select
+                                     md-boundary-links="options.boundaryLinks"
+                                     md-label="{page: 'Page:', rowsPerPage: 'rows per page', of: 'of'}">
+                </md-table-pagination>
+            </md-card>
+        </div>
+    </div>
+</div>

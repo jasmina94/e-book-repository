@@ -60,4 +60,28 @@ pre {
     font-weight: 100;
 }
 
+.sfsFormStyle {
+    margin-right: 100px;
+    border-radius: 10px;
+    border: 1px solid blue;
+    background-color: #f9f9f9;
+}
 
+.sfsFormTitleStyle{
+    font-size:medium;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.mfsFormStyle{
+    border-radius: 10px;
+    border: 1px solid blue;
+    background-color: #f9f9f9;
+}
+
+.mfsFormTitleStyle{
+    font-size:medium;
+    width: 100%;
+    text-align: center;
+}

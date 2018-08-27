@@ -10,25 +10,25 @@
                 <table md-table>
                     <thead md-head md-order="query.order">
                     <tr md-row>
-                        <th md-column style="max-width: 60px">Type</th>
-                        <th md-column style="max-width: 60px">Firstname</th>
-                        <th md-column style="max-width: 60px">Lastname</th>
-                        <th md-column style="max-width: 60px">Username</th>
-                        <th md-column style="max-width: 60px">Password</th>
-                        <th md-column style="max-width: 60px">Subscribed to category</th>
-                        <th md-column style="max-width: 60px" ng-if="authService.isAdmin()">Delete user account</th>
+                        <th md-column style="max-width: 100%">Type</th>
+                        <th md-column style="max-width: 100%">Firstname</th>
+                        <th md-column style="max-width: 100%">Lastname</th>
+                        <th md-column style="max-width: 100%">Username</th>
+                        <th md-column style="max-width: 100%">Password</th>
+                        <th md-column style="max-width: 100%">Subscribed to category</th>
+                        <th md-column style="max-width: 100%" ng-if="authService.isAdmin()">Delete user account</th>
                     </tr>
                     </thead>
                     <tbody md-body>
                     <tr md-row ng-repeat="user in users | limitTo: query.limit:(query.page-1) * query.limit"
                         ng-click="edit(user)">
-                        <td md-cell style="max-width: 60px">{{typesOfUser[user.type]}}</td>
-                        <td md-cell style="max-width: 60px">{{user.firstname}}</td>
-                        <td md-cell style="max-width: 60px">{{user.lastname}}</td>
-                        <td md-cell style="max-width: 60px">{{user.username}}</td>
-                        <td md-cell style="max-width: 60px">{{user.password}}</td>
-                        <td md-cell style="max-width: 60px">{{user.category.name}}</td>
-                        <td md-cell style="max-width: 60px" ng-if="authService.isAdmin()">
+                        <td md-cell style="max-width: 100%">{{typesOfUser[user.type]}}</td>
+                        <td md-cell style="max-width: 100%">{{user.firstname}}</td>
+                        <td md-cell style="max-width: 100%">{{user.lastname}}</td>
+                        <td md-cell style="max-width: 100%">{{user.username}}</td>
+                        <td md-cell style="max-width: 100%">{{user.password}}</td>
+                        <td md-cell style="max-width: 100%">{{user.category.name}}</td>
+                        <td md-cell style="max-width: 100%" ng-if="authService.isAdmin()">
                             <md-button class="md-icon-button md-accent" aria-label="Delete"
                                        ng-click="delete(user, $event)">
                                 <md-icon md-svg-icon="images/ic_delete_blue.svg"></md-icon>

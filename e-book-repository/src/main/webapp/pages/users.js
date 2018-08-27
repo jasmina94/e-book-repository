@@ -15,6 +15,7 @@ app.controller('UsersController', function ($scope, $state, $rootScope, $mdDialo
     var loadUsers = function () {
         userService.read(function (response) {
             $scope.users = filter(response.data);
+            users = $scope.users;
             filterSubscribers(response.data);
         });
     };
@@ -55,6 +56,30 @@ app.controller('UsersController', function ($scope, $state, $rootScope, $mdDialo
 
     $scope.$on('add', function() {
         openForm(null);
+    });
+
+    $scope.$on('search', function(event, args) {
+        var searchText = args.searchText;
+        if (searchText === null || searchText === "") {
+            $scope.users = users;
+            return;
+        }
+        var criteria = searchText.match(/\S+/g);
+        $scope.users = [];
+        for (var i = 0; i < users.length; i++) {
+            for (var j = 0; j < criteria.length; j++) {
+                if (users[i].firstname.toLowerCase().match(criteria[j].toLowerCase())
+                    || users[i].lastname.toLowerCase().match(criteria[j].toLowerCase())
+                    || users[i].username.toLowerCase().match(criteria[j].toLowerCase())
+                    || users[i].category.name.toLowerCase().match(criteria[j].toLowerCase())
+                    || users[i].type.toLowerCase().match(criteria[j].toLowerCase())
+                    || users[i].id === Number(criteria)) {
+                    if($scope.users.indexOf(users[i]) === -1) {
+                        $scope.users.push(users[i]);
+                    }
+                }
+            }
+        }
     });
 
     $scope.edit = function (user) {

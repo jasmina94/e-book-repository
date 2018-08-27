@@ -6,5 +6,4 @@ app.controller('HomeController', function ($scope, $state, $location, $log, $roo
     $scope.page.current = 0;
 
     $scope.authService = authenticationService;
-
 });

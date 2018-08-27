@@ -22,7 +22,6 @@ app.controller('NavigationController', function ($scope, $state, $location, $log
     };
 
     $scope.login = function () {
-      console.log("Login");
       $state.transitionTo('login');
     };
 
@@ -78,9 +77,22 @@ app.controller('NavigationController', function ($scope, $state, $location, $log
         return show;
     };
 
+    $scope.showSearchOption = function () {
+      var show = false;
+      var page = $scope.page;
+      if(page.current == 1 || page.current == 5){
+          show = true;
+      }
+      return show;
+    };
+
     $scope.add = function () {
         $scope.$broadcast('add');
         $scope.showSearch = false;
         $scope.emitSearchQuery(null);
+    };
+
+    $scope.radiBre = function () {
+        $scope.showSearch = true;
     };
 });

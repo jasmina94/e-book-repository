@@ -12,10 +12,10 @@
                     <tr md-row>
                         <th md-column style="width: 30px"
                             ng-if="authService.hasSubscription() && authService.isSubscriber()"></th>
-                        <th md-column style="max-width: 60px">Category name</th>
-                        <th md-column style="max-width: 60px">Books in category</th>
-                        <th md-column style="max-width: 60px" ng-if="authService.isAdmin()">Delete</th>
-                        <th md-column style="max-width: 60px"
+                        <th md-column style="max-width: 100%">Category name</th>
+                        <th md-column style="max-width: 100%">Books in category</th>
+                        <th md-column style="max-width: 100%" ng-if="authService.isAdmin()">Delete</th>
+                        <th md-column style="max-width: 100%"
                             ng-if="authService.hasNoSubscription() && authService.isSubscriber()">Subscribe
                         </th>
                     </tr>
@@ -31,20 +31,20 @@
                                 <md-icon md-svg-icon="images/ic_empty_star.svg"></md-icon>
                             </md-button>
                         </td>
-                        <td md-cell style="max-width: 60px">{{category.name}}</td>
-                        <td md-cell style="max-width: 60px">
+                        <td md-cell style="max-width: 100%">{{category.name}}</td>
+                        <td md-cell style="max-width: 100%">
                             <md-button class="md-icon-button md-accent" aria-label="Books"
                                        ng-click="showBooks(category, $event)" style="margin-left: -5px;">
                                 <md-icon md-svg-icon="images/ic_document_24px.svg"></md-icon>
                             </md-button>
                         </td>
-                        <td md-cell style="max-width: 60px" ng-if="authService.isAdmin()">
+                        <td md-cell style="max-width: 100%" ng-if="authService.isAdmin()">
                             <md-button class="md-icon-button md-accent" aria-label="Delete"
                                        ng-click="delete(category, $event)">
                                 <md-icon md-svg-icon="images/ic_delete_blue.svg"></md-icon>
                             </md-button>
                         </td>
-                        <td md-cell style="max-width: 60px"
+                        <td md-cell style="max-width: 100%"
                             ng-if="authService.hasNoSubscription() && authService.isSubscriber()">
                             <md-button class="md-icon-button md-accent" aria-label="Subsrcibe"
                                        ng-click="subscribe(category, $event)">

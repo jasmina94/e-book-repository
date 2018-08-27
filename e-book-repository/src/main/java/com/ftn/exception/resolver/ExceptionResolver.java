@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 @ControllerAdvice
@@ -41,5 +42,20 @@ public class ExceptionResolver {
     @ExceptionHandler(DataAccessException.class)
     public ResponseEntity dataAccessException(HttpServletRequest request, DataAccessException exception) {
         return new ResponseEntity<>("{\"message\": \"" + exception.getMessage() + "\"}", HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(IncompleteIndexDocumentException.class)
+    public ResponseEntity incompleteIndexDocumentException(HttpServletRequest request, IncompleteIndexDocumentException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ParseQueryException.class)
+    public ResponseEntity parseQueryException(HttpServletRequest request, ParseQueryException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity illegalArgument(HttpServletRequest request, IllegalArgumentException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -2,7 +2,6 @@ package com.ftn.model.dto;
 
 import com.ftn.model.EBook;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
@@ -12,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class EBookDTO {
 
-    private long id;
+    private Long id;
 
     @NotNull
     private String title;
@@ -21,12 +20,12 @@ public class EBookDTO {
 
     private String keywords;
 
-    private int publicationYear;
+    private Integer publicationYear;
 
     @NotNull
     private String filename;
 
-    private String MIME;
+    private String mime;
 
     @NotNull
     private LanguageDTO language;
@@ -46,7 +45,7 @@ public class EBookDTO {
         this.keywords = eBook.getKeywords();
         this.publicationYear = eBook.getPublicationYear();
         this.filename = eBook.getFilename();
-        this.MIME = eBook.getMIME();
+        this.mime = eBook.getMime();
         this.language = new LanguageDTO(eBook.getLanguage());
         this.category = new CategoryDTO(eBook.getCategory());
         this.cataloguer = new UserDTO(eBook.getCataloguer());
@@ -61,7 +60,7 @@ public class EBookDTO {
         eBook.setKeywords(this.keywords);
         eBook.setPublicationYear(this.publicationYear);
         eBook.setFilename(this.filename);
-        eBook.setMIME(this.MIME);
+        eBook.setMime(this.mime);
         eBook.setLanguage(this.language.construct());
         eBook.setCategory(this.category.construct());
         eBook.setCataloguer(this.cataloguer.construct());

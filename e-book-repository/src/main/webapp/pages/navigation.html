@@ -7,7 +7,7 @@
                 </md-button>
                 <h2><span>{{page.title}}</span></h2>
                 <span flex></span>
-                <md-button aria-label="Search" ng-click="showSearch = !showSearch">
+                <md-button aria-label="Search" ng-click="radiBre()" ng-if="showSearchOption()">
                     <md-icon md-svg-icon="images/ic_search_white_24px.svg"></md-icon>
                 </md-button>
                 <h3 class="toolbar-item"><span>{{user.firstname}} {{user.lastname}}</span></h3>
